@@ -71,7 +71,7 @@ IRCameraPython/
 │
 └── sdk/
     ├── generic.xml
-    ├── formats.def
+    ├── Formats.def
     ├── Califiles_SNxxxx/
     └── x64/
         └── libirimager.dll

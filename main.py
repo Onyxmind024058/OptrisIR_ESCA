@@ -192,9 +192,9 @@ class OptrisIR:
         xml_dir = os.path.dirname(self.config_path_str)
         old_cwd = os.getcwd()
 
-        formats_def = os.path.join(xml_dir, "formats.def")
+        formats_def = os.path.join(xml_dir, "Formats.def")
         if not os.path.exists(formats_def):
-            raise FileNotFoundError(f"formats.def missing:\n{formats_def}")
+            raise FileNotFoundError(f"Formats.def missing:\n{formats_def}")
 
         try:
             # Important: XML uses relative paths -> set CWD to XML folder
