@@ -179,3 +179,55 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# ============================================================
+# Project-specific (Optris IR GUI)
+# ============================================================
+
+# Optris SDK binaries (DO NOT COMMIT)
+sdk/x64/*.dll
+sdk/x64/*.pdb
+
+# Camera calibration files (often machine / camera specific)
+sdk/Califiles_*/
+
+# Runtime logs (written to AppData anyway, but just in case)
+*.log
+
+# Recorded data / exports
+*.avi
+*.h5
+*.hdf5
+*.tif
+*.tiff
+*.csv
+
+# Windows noise
+Thumbs.db
+Desktop.ini
+
+# ============================================================
+# Project-specific (Optris IR GUI)
+# ============================================================
+
+# Optris SDK binaries (DO NOT COMMIT)
+sdk/x64/*.dll
+sdk/x64/*.pdb
+
+# Camera calibration files (often machine / camera specific)
+sdk/Califiles_*/
+
+# Runtime logs (written to AppData anyway, but just in case)
+*.log
+
+# Recorded data / exports
+*.avi
+*.h5
+*.hdf5
+*.tif
+*.tiff
+*.csv
+
+# Windows noise
+Thumbs.db
+Desktop.ini
