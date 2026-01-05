@@ -39,10 +39,6 @@ DEFAULT_T_RANGE = (0, 250)  # you confirmed this fixes your init
 # Portable paths (relative to this main.py)
 # ============================================================
 BASE_DIR = resource_dir()
-SDK_DIR = BASE_DIR / "sdk" / "x64"
-DLL_NAME = "libirimager.dll"
-CONFIG_XML = BASE_DIR / "sdk" / "generic.xml"
-
 ICON_PATH = BASE_DIR / "icon.ico"
 SPLASH_PATH = BASE_DIR / "splash.png"
 
@@ -53,6 +49,45 @@ MANUAL_URL = (
     "https://www.notion.so/paulhiret/"
     "IRCamera-Imager-UB-User-Procedure-2735aa0ff72f80b58024c86f0eb73271"
 )
+
+def get_sdk_dir() -> Path:
+    """
+    Resolve SDK directory in this order:
+    1) ProgramData (common app data)  -> admin install
+    2) AppData/Roaming (user app data)-> per-user install
+    3) Local folder (dev / fallback)
+    """
+
+    # 1) Common AppData (C:\ProgramData)
+    common = Path(os.environ.get("PROGRAMDATA", "")) / APP_NAME / "sdk"
+    if common.exists():
+        return common
+
+    # 2) User AppData (C:\Users\...\AppData\Roaming)
+    user = Path(os.environ.get("APPDATA", "")) / APP_NAME / "sdk"
+    if user.exists():
+        return user
+
+    # 3) Development / bundled fallback
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        base = Path(sys._MEIPASS)
+    else:
+        base = Path(__file__).resolve().parent
+
+    fallback = base / "sdk"
+    if fallback.exists():
+        return fallback
+
+    raise FileNotFoundError(
+        "Optris SDK not found in ProgramData, AppData, or application folder."
+    )
+
+SDK_DIR = get_sdk_dir()
+CONFIG_XML = SDK_DIR / "generic.xml"
+SDK_DIR = SDK_DIR / "x64"
+DLL_NAME = "libirimager.dll"
+os.add_dll_directory(str(SDK_DIR))
+dll_path = SDK_DIR / DLL_NAME
 
 
 
